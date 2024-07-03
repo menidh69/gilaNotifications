@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SendBulkNotificationDto } from 'src/dtos/sendBulkNotification.dto';
-import { Notification } from 'src/entities/notification.entity';
-import { UsersService } from 'src/users/users.service';
+import { SendBulkNotificationDto } from '../dtos/sendBulkNotification.dto';
+import { Notification } from '../entities/notification.entity';
+import { UsersService } from '../users/users.service';
 import { Repository } from 'typeorm';
 import { NotificationFactory } from './notification.factory';
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
-import { SaveNotificationDto } from 'src/dtos/saveNotification.dto';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
+import { SaveNotificationDto } from '../dtos/saveNotification.dto';
 
 @Injectable()
 export class NotificationsService {

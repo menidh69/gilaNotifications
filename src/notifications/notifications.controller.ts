@@ -2,13 +2,11 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
+  Body
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { SendBulkNotificationDto } from 'src/dtos/sendBulkNotification.dto';
+import { SendBulkNotificationDto } from '../dtos/sendBulkNotification.dto';
+import { ValidationPipe } from '../pipes/validation.pipe';
 
 @Controller('notifications')
 export class NotificationsController {

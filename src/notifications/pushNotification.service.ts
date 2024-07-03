@@ -1,8 +1,8 @@
-import { SaveNotificationDto } from 'src/dtos/saveNotification.dto';
-import { SendSingleNotificationDto } from 'src/dtos/sendSingleNotification.dto';
-import { User } from 'src/entities/user.entity';
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
-import { NotificationServiceInterface } from 'src/interfaces/notificationService.interface';
+import { SaveNotificationDto } from '../dtos/saveNotification.dto';
+import { SendSingleNotificationDto } from '../dtos/sendSingleNotification.dto';
+import { User } from '../entities/user.entity';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
+import { NotificationServiceInterface } from '../interfaces/notificationService.interface';
 
 export class PushNotification implements NotificationServiceInterface {
   async send(data: SendSingleNotificationDto): Promise<SaveNotificationDto> {

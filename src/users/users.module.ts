@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
-import { UserMessageCategory } from 'src/entities/userMessageChannel.entitiy';
+import { User } from '../entities/user.entity';
+import { UserMessageCategory } from '../entities/userMessageChannel.entitiy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, UserMessageCategory])],

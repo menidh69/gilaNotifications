@@ -1,8 +1,8 @@
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
 import { PushNotification } from './pushNotification.service';
 import { SMSNotification } from './sms.service';
 import { EmailNotification } from './email.service';
-import { UserSubscription } from 'src/entities/userSubscription.entity';
+import { UserSubscription } from '../entities/userSubscription.entity';
 
 export class NotificationFactory {
   createNotificationService(notificationType: NotificationTypes) {

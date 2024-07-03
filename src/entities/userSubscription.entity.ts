@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
 
 @Entity('userSubscription')
 export class UserSubscription {

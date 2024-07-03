@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-import { MessageCategories } from 'src/enums/messageCategories.enum';
+import { MessageCategories } from '../enums/messageCategories.enum';
 
 @Entity('userMessageCategory')
 export class UserMessageCategory {

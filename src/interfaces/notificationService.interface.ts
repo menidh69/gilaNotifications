@@ -1,5 +1,5 @@
-import { SaveNotificationDto } from 'src/dtos/saveNotification.dto';
-import { SendSingleNotificationDto } from 'src/dtos/sendSingleNotification.dto';
+import { SaveNotificationDto } from '../dtos/saveNotification.dto';
+import { SendSingleNotificationDto } from '../dtos/sendSingleNotification.dto';
 
 export interface NotificationServiceInterface {
   send(data: SendSingleNotificationDto): Promise<SaveNotificationDto>;

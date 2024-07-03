@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserQueryDto } from 'src/dtos/userQuery.dto';
-import { User } from 'src/entities/user.entity';
-import { UserMessageCategory } from 'src/entities/userMessageChannel.entitiy';
-import { MessageCategories } from 'src/enums/messageCategories.enum';
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
+import { UserQueryDto } from '../dtos/userQuery.dto';
+import { User } from '../entities/user.entity';
+import { UserMessageCategory } from '../entities/userMessageChannel.entitiy';
+import { MessageCategories } from '../enums/messageCategories.enum';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,5 +1,5 @@
-import { MessageCategories } from 'src/enums/messageCategories.enum';
-import { NotificationTypes } from 'src/enums/notificationTypes.enum';
+import { MessageCategories } from '../enums/messageCategories.enum';
+import { NotificationTypes } from '../enums/notificationTypes.enum';
 import {
   Column,
   CreateDateColumn,
