@@ -12,8 +12,6 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    @InjectRepository(UserMessageCategory)
-    private userMessageChannels: Repository<UserMessageCategory>,
   ) {}
 
   findAll() {
