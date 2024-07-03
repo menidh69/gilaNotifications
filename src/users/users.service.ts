@@ -4,6 +4,7 @@ import { UserQueryDto } from 'src/dtos/userQuery.dto';
 import { User } from 'src/entities/user.entity';
 import { UserMessageCategory } from 'src/entities/userMessageChannel.entitiy';
 import { MessageCategories } from 'src/enums/messageCategories.enum';
+import { NotificationTypes } from 'src/enums/notificationTypes.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -25,8 +26,8 @@ export class UsersService {
 
   findAllByMessageChannelSubscription(
     messageCategory: MessageCategories,
-    limit: number,
-    offset: number,
+    take: number,
+    skip: number,
   ) {
     return this.userRepository
       .createQueryBuilder('user')
@@ -35,8 +36,8 @@ export class UsersService {
       .where('messageCategories.messageCategory = :messageCategory', {
         messageCategory,
       })
-      .limit(limit)
-      .offset(offset)
+      .take(take)
+      .skip(skip)
       .getMany();
   }
 
@@ -48,5 +49,22 @@ export class UsersService {
         messageCategory,
       })
       .getCount();
+  }
+
+  getSubscribersByNotificationAndCategory(
+    messageCategory: MessageCategories,
+    notificationType: NotificationTypes,
+  ) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .innerJoin('user.messageCategories', 'messageCategories')
+      .innerJoin('user.userSubscriptions', 'userSubscriptions')
+      .where('messageCategories.messageCategory = :messageCategory', {
+        messageCategory,
+      })
+      .andWhere('userSubscriptions.notificationType = :notificationType', {
+        notificationType,
+      })
+      .getMany();
   }
 }

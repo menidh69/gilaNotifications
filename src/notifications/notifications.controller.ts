@@ -16,6 +16,13 @@ export class NotificationsController {
 
   @Post()
   sendNotification(@Body() sendBulkNotificationDto: SendBulkNotificationDto) {
-    this.notificationsService.sendBulkNotifications(sendBulkNotificationDto);
+    return this.notificationsService.sendBulkNotifications(
+      sendBulkNotificationDto,
+    );
+  }
+
+  @Get()
+  async getNotifications() {
+    return this.notificationsService.getNotifications();
   }
 }

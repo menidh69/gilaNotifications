@@ -5,12 +5,12 @@ import { EmailNotification } from './email.service';
 import { UserSubscription } from 'src/entities/userSubscription.entity';
 
 export class NotificationFactory {
-  createNotification(subscription: UserSubscription) {
-    if (subscription.notificationType === NotificationTypes.EMAIL) {
+  createNotificationService(notificationType: NotificationTypes) {
+    if (notificationType === NotificationTypes.EMAIL) {
       return new EmailNotification();
-    } else if (subscription.notificationType === NotificationTypes.SMS) {
+    } else if (notificationType === NotificationTypes.SMS) {
       return new SMSNotification();
-    } else if (subscription.notificationType === NotificationTypes.PUSH) {
+    } else if (notificationType === NotificationTypes.PUSH) {
       return new PushNotification();
     }
   }
