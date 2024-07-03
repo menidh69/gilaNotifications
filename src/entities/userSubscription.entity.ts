@@ -10,6 +10,6 @@ export class UserSubscription {
   @ManyToOne(() => User, (user) => user.userSubscriptions)
   user: User;
 
-  @Column({ enum: NotificationTypes, nullable: false })
+  @Column({ type: 'enum', enum: NotificationTypes, nullable: false })
   notificationType: NotificationTypes;
 }

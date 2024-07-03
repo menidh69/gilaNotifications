@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -20,12 +21,18 @@ export class Notification {
   @Column({ nullable: false })
   message: string;
 
-  @Column({ enum: NotificationTypes, nullable: false })
+  @Column({ type: 'enum', enum: NotificationTypes, nullable: false })
   notificationType: NotificationTypes;
 
-  @Column({ enum: MessageCategories, nullable: false })
-  messageCategories: MessageCategories;
+  @Column({ type: 'enum', enum: MessageCategories, nullable: false })
+  messageCategory: MessageCategories;
 
-  @OneToOne(() => User, (user) => user.notifications)
+  @Column()
+  status: string;
+
+  @Column()
+  recipient: string;
+
+  @ManyToOne(() => User, (user) => user.notifications)
   user: User;
 }

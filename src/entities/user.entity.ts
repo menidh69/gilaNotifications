@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { UserSubscription } from './userSubscription.entity';
 import { Notification } from '../entities/notification.entity';
-import { UserMessageChannel } from './userMessageChannel.entitiy';
+import { UserMessageCategory } from './userMessageChannel.entitiy';
 
 @Entity('user')
 export class User {
@@ -17,14 +17,17 @@ export class User {
   @Column()
   phone: string;
 
+  @Column()
+  pushClientId: string;
+
   @OneToMany(
     () => UserSubscription,
     (userSubscription) => userSubscription.user,
   )
   userSubscriptions: UserSubscription[];
 
-  @OneToMany(() => UserMessageChannel, (userChannel) => userChannel.user)
-  messageChannels: any[];
+  @OneToMany(() => UserMessageCategory, (userChannel) => userChannel.user)
+  messageCategories: UserMessageCategory[];
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications: Notification;

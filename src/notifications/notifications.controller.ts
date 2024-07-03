@@ -8,12 +8,14 @@ import {
   Delete,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { SendNotificationDto } from 'src/dtos/sendNotification.dto';
+import { SendBulkNotificationDto } from 'src/dtos/sendBulkNotification.dto';
 
 @Controller('notifications')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
   @Post()
-  sendNotification(@Body() sendNotificationDto: SendNotificationDto) {}
+  sendNotification(@Body() sendBulkNotificationDto: SendBulkNotificationDto) {
+    this.notificationsService.sendBulkNotifications(sendBulkNotificationDto);
+  }
 }

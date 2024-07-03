@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserQueryDto } from 'src/dtos/userQuery.dto';
 import { User } from 'src/entities/user.entity';
-import { UserMessageChannel } from 'src/entities/userMessageChannel.entitiy';
+import { UserMessageCategory } from 'src/entities/userMessageChannel.entitiy';
+import { MessageCategories } from 'src/enums/messageCategories.enum';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -10,8 +11,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    @InjectRepository(UserMessageChannel)
-    private userMessageChannels: Repository<UserMessageChannel>,
+    @InjectRepository(UserMessageCategory)
+    private userMessageChannels: Repository<UserMessageCategory>,
   ) {}
 
   findAll() {
@@ -22,10 +23,30 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  findAllByMessageChannelSubscription(messageChannel: MessageChannel) {
-    return this.userMessageChannels.find({
-      where: { messageChannel: messageChannel },
-      select: ['userId'],
-    });
+  findAllByMessageChannelSubscription(
+    messageCategory: MessageCategories,
+    limit: number,
+    offset: number,
+  ) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .innerJoin('user.messageCategories', 'messageCategories')
+      .leftJoinAndSelect('user.userSubscriptions', 'userSubscriptions')
+      .where('messageCategories.messageCategory = :messageCategory', {
+        messageCategory,
+      })
+      .limit(limit)
+      .offset(offset)
+      .getMany();
+  }
+
+  countUsersSubscribedToChannel(messageCategory: MessageCategories) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .innerJoin('user.messageCategories', 'messageCategories')
+      .where('messageCategories.messageCategory = :messageCategory', {
+        messageCategory,
+      })
+      .getCount();
   }
 }

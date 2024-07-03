@@ -1,6 +1,6 @@
 import { MessageCategories } from 'src/enums/messageCategories.enum';
 
-export class SendNotificationDto {
+export class SendBulkNotificationDto {
   messageCategory: MessageCategories;
   message: string;
 }

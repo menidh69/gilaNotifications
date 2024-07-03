@@ -1,17 +1,21 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
+import { MessageCategories } from 'src/enums/messageCategories.enum';
 
-@Entity('userMessageChannel')
-export class UserMessageChannel {
-  @PrimaryColumn()
+@Entity('userMessageCategory')
+export class UserMessageCategory {
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.messageChannels)
+  @ManyToOne(() => User, (user) => user.messageCategories)
   user: User;
 
-  @Column({ enum: MessageChannel, nullable: false })
-  messageChannel: MessageChannel;
-
-  @Column('int', { name: 'userId', nullable: false })
-  userId: number;
+  @Column({ type: 'enum', enum: MessageCategories, nullable: false })
+  messageCategory: MessageCategories;
 }
