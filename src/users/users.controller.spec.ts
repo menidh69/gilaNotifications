@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
+jest.mock('./users.service');
+
 describe('UsersController', () => {
   let controller: UsersController;
 

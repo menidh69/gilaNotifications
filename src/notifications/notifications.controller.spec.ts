@@ -33,7 +33,7 @@ describe('NotificationsController', () => {
     it('calls service succesfully', async () => {
       jest
         .spyOn(service, 'sendBulkNotifications')
-        .mockImplementation(() => Promise.resolve());
+        .mockImplementation((): Promise<any> => Promise.resolve());
       return expect(controller.sendNotification(data)).resolves.not.toThrow();
     });
 

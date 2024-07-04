@@ -13,6 +13,7 @@ import { SendBulkNotificationDto } from '../dtos/sendBulkNotification.dto';
 import { EmailNotification } from './email.service';
 import { Repository } from 'typeorm';
 import { SMSNotification } from './sms.service';
+import { SaveNotificationDto } from 'src/dtos/saveNotification.dto';
 
 const mockRepository = () => ({
   createQueryBuilder: jest.fn().mockReturnValue(mockQueryBuilderFactory()),
@@ -185,13 +186,11 @@ describe('NotificationsService', () => {
         .spyOn(emailService, 'sendBulk')
         .mockImplementation(async (message, category, users) => {
           return users.map((u) => {
-            const notification: Notification = {
-              id: null,
+            const notification: SaveNotificationDto = {
               message: message,
               messageCategory: category,
               user: u,
               notificationType: NotificationTypes.EMAIL,
-              createdAt: null,
               recipient: u.email,
               status: 'success',
             };
@@ -203,13 +202,11 @@ describe('NotificationsService', () => {
         .spyOn(smsService, 'sendBulk')
         .mockImplementation(async (message, category, users) => {
           return users.map((u) => {
-            const notification: Notification = {
-              id: null,
+            const notification: SaveNotificationDto = {
               message: message,
               messageCategory: category,
               user: u,
               notificationType: NotificationTypes.SMS,
-              createdAt: null,
               recipient: u.phone,
               status: 'success',
             };
@@ -221,13 +218,11 @@ describe('NotificationsService', () => {
         .spyOn(pushNotification, 'sendBulk')
         .mockImplementation(async (message, category, users) => {
           return users.map((u) => {
-            const notification: Notification = {
-              id: null,
+            const notification: SaveNotificationDto = {
               message: message,
               messageCategory: category,
               user: u,
               notificationType: NotificationTypes.PUSH,
-              createdAt: null,
               recipient: u.pushClientId,
               status: 'success',
             };
@@ -237,8 +232,8 @@ describe('NotificationsService', () => {
 
       jest
         .spyOn(notificationRepository, 'save')
-        .mockImplementation(async (i: any) => {
-          return i;
+        .mockImplementation(async (items: any) => {
+          return items.map((i) => ({ ...i, id: null, createdAt: null }));
         });
 
       const sentNotifications = await service.sendBulkNotifications(
