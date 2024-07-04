@@ -19,6 +19,7 @@ export class NotificationsService {
 
   async sendBulkNotifications(sendNotificationDto: SendBulkNotificationDto) {
     const { message, messageCategory } = sendNotificationDto;
+    let sentNotifications: Notification[] = [];
 
     const emailUsers =
       await this.userService.getSubscribersByNotificationAndCategory(
@@ -31,7 +32,8 @@ export class NotificationsService {
       );
       const notificationResp: SaveNotificationDto[] =
         await emailService.sendBulk(message, messageCategory, emailUsers);
-      await this.notificationRepository.save(notificationResp);
+      const result = await this.notificationRepository.save(notificationResp);
+      sentNotifications = sentNotifications.concat(result);
     }
 
     const smsUsers =
@@ -48,7 +50,8 @@ export class NotificationsService {
         messageCategory,
         smsUsers,
       );
-      await this.notificationRepository.save(smsNotifications);
+      const result = await this.notificationRepository.save(smsNotifications);
+      sentNotifications = sentNotifications.concat(result);
     }
 
     const pushSubscribers =
@@ -63,10 +66,11 @@ export class NotificationsService {
       const notificationResp: SaveNotificationDto[] =
         await pushService.sendBulk(message, messageCategory, pushSubscribers);
 
-      await this.notificationRepository.save(notificationResp);
+      const result = await this.notificationRepository.save(notificationResp);
+      sentNotifications = sentNotifications.concat(result);
     }
 
-    return;
+    return sentNotifications;
   }
 
   // Not actually used but it´s an alternative way of sending the notifications in case bulk sending is not available
